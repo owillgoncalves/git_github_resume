@@ -1,4 +1,4 @@
-# GIT E GITHUB
+# GIT
 
 ## INTRODUÇÃO / LÓGICA DO VERSIONAMENTO
 
@@ -247,4 +247,25 @@ Working Directory: Arquivos untracked, unmodified e modified
 Staging Area: Arquivo adicionado - git add (arquivo)
 
 Local Repository: "Snapshot" dos arquivos commitados, que voltam a estar disponíveis, após versionados, no working directory
+___
+
+# GITHUB
+
+Associando repositório remoto ao repositório local, onde `origin` é um alias do repositório remoto
+
+```bash
+$ git remote add origin [url]
+```
+
+Empurrar código do repositório local para o repositório remoto
+
+```bash
+$ git push origin [branch]
+```
+
+Baixa as atualizações do repositório remoto para o repositório local
+
+```bash
+$ git pull origin [branch]
+```
 
