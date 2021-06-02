@@ -66,3 +66,73 @@ $ echo hello > hello.txt
 ```bash
 $ rm -rf directory-name/
 ```
+
+## Entendendo como o GIT funciona por baixo dos panos
+
+### SHA1
+- Secure Hash Algorithm.
+- Conjunto de funções hash criptográficas projetadas pela NSA (Agência de Segurança Nacional dos EUA)
+- A encriptação gera um conjunto de 40 caracteres para cada versão de um arquivo
+
+Exemplo:
+
+```bash
+$ echo hello > hello.txt
+$ openssl sha1 hello.txt
+    SHA1(hello.txt)= f572d396fae9206628714fb2ce00f72e94f2258f
+
+$ echo hello2 > hello.txt
+$ openssl sha1 hello.txt
+    SHA1(hello.txt)= 0d2aae7d156d796b97ae11b4dba506a55f54a75e
+
+$ echo hello > hello.txt
+$ openssl sha1 hello.txt
+    SHA1(hello.txt)= f572d396fae9206628714fb2ce00f72e94f2258f
+```
+
+### Objetos fundamentais
+
+#### BLOBS
+
+- Objeto com metadados. Ex: `blob 6\0hello`, sendo:
+    - Bloco básico de composição para versão de um conteúdo
+    - blob: tipo do objeto
+    - 6: tamanho do conteúdo em bytes
+    - \0: caractere nulo / separador entre cabeçalho e conteúdo
+    - hello: conteúdo
+    - É gerado um SHA1, mas com valor diferente do método anterior, já que o blob possui mais dados e, consequentemente, é diferente do arquivo "cru"
+
+```bash
+$ git hash-object hello.txt
+ce013625030ba8dba906f756967f9e9ca394464a
+```
+
+#### TREE
+
+- Conjunto de blobs e/ou outras trees. Organiza, em uma única estrutura, um conjunto de alterações/versões.
+- `tree <tamanho> \0 ... [blob <sha1> <nome-do-arquivo>] [...] [trees...] [blobs...]`
+- É gerado um SHA1 que será alterado a partir das alterações/versões de qualquer uma das dependências.
+
+    - TREE
+        - README => BLOB
+        - file.txt => BLOB
+        - /lib => TREE
+            - other.txt => BLOB
+
+#### COMMIT
+
+- Objeto final que dá sentido a alteração, contendo:
+    - O SHA1 da TREE com as alterações
+    - O SHA1 do último commit antes dele (quando houver)
+    - O autor desse commit
+    - A mensagem que dá sentido a alteração
+    - Timestamp do momento do commit
+- O SHA1 desse commit é o hash de toda a alteração e também é influenciado por qualquer alteração, tanto nas dependências da TREE, como nos outros metadados
+
+### Sistema distribuído
+
+Como os commits são independentes e possuem informações únicas, mesmo que duas pessoas pessoas fizerem a mesma alteração, a partir de um mesmo ponto, os SHA1 serão distintos e portanto, serão duas versões diferentes. Isso garante que não aconteça colisão e duplicidade entre versões.
+
+### Segurança
+
+Se um repositório principal for compartilhado por um grupo de pessoas e ele acabar sendo perdido, qualquer membro desse grupo que tiver a versão atualizada desse repositório poderá reintegrá-lo a origem, mantendo todo o histórico de alterações e versões do projeto.
