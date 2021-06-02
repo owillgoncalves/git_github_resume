@@ -169,12 +169,12 @@ $ ls
 HEAD  config  description  hooks/  info/  objects/  refs/
 ```
 
-### git add [file name | *]
+### git add [file name | * | .]
 
 Adiciona um ou mais arquivos que tiveram seu conteúdo alterado desde o último commit
 
 ```bash
-$ git add *
+$ git add [arquivo]
 ```
 
 ### git commit
