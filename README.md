@@ -136,3 +136,51 @@ Como os commits são independentes e possuem informações únicas, mesmo que du
 ### Segurança
 
 Se um repositório principal for compartilhado por um grupo de pessoas e ele acabar sendo perdido, qualquer membro desse grupo que tiver a versão atualizada desse repositório poderá reintegrá-lo a origem, mantendo todo o histórico de alterações e versões do projeto.
+
+## PRIMEIROS COMANDOS COM GIT
+
+### git config [--global] [value]
+
+Adiciona configurações ao utilitário git local, como e-mail e nome do autor dos commits:
+
+```bash
+$ git config --global user.email "seuemail@dominio.com"
+$ git config --global user.name "Nome Sobrenome"
+```
+
+Para confirmar a atribuição, use os seguintes comandos:
+
+```bash
+$ git config --get user.email
+seuemail@dominio.com
+
+$ git config --get user.name
+Nome Sobrenome
+```
+
+### git init
+
+Inicia um repositório vazio na pasta atual. É criada uma pasta oculta chamada '.git/', onde a estrutura do repositório é armazenada. É possível listar o conteúdo dessa pasta, pelo próprio terminal:
+
+```bash
+$ git init
+$ cd .git
+$ ls
+HEAD  config  description  hooks/  info/  objects/  refs/
+```
+
+### git add [file name | *]
+
+Adiciona um ou mais arquivos que tiveram seu conteúdo alterado desde o último commit
+
+```bash
+$ git add *
+```
+
+### git commit
+
+Cria uma anotação com todas as alterações e informações descritar no tópico anterior (Objetos Fundamentais > COMMIT). Usando a flag `-m` seguida de uma `"mensagem"`, damos sentido ao conteúdo "commitado".
+
+```bash
+$ git commit -m "Descrição das alterações"
+```
