@@ -184,3 +184,19 @@ Cria uma anotação com todas as alterações e informações descritar no tópi
 ```bash
 $ git commit -m "Descrição das alterações"
 ```
+
+## CICLO DE VIDA DOS ARQUIVOS NO GIT
+
+    UNTRACKED       ------------------------TRACKED-----------------------
+        |               |                       |                      |
+        |         [UNMODIFIED]              [MODIFIED]              [STAGED]
+        |               |                       |                      |
+        | git add ---------------------------------------------------->|
+        |               |                       |                      |                                                                    
+        |               | Arquivo editado ----->|                      |
+        |               |                       |                      |
+        |               |                       | git add------------->|
+        |               |                       |                      |
+        |<------ git rm |                       |                      |
+        |               |                       |                      |
+        |               |<--------------------------------- git commit |
