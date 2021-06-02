@@ -13,7 +13,7 @@ GitHub
 - Trabalho em equipe
 - Melhorar seu código
 - Reconhecimento
-
+___
 ## Navegação básica no terminal
 
 GUI (Graphic User Interface) x CLI (Command Line Interface)
@@ -66,7 +66,7 @@ $ echo hello > hello.txt
 ```bash
 $ rm -rf directory-name/
 ```
-
+___
 ## Entendendo como o GIT funciona por baixo dos panos
 
 ### SHA1
@@ -136,7 +136,7 @@ Como os commits são independentes e possuem informações únicas, mesmo que du
 ### Segurança
 
 Se um repositório principal for compartilhado por um grupo de pessoas e ele acabar sendo perdido, qualquer membro desse grupo que tiver a versão atualizada desse repositório poderá reintegrá-lo a origem, mantendo todo o histórico de alterações e versões do projeto.
-
+___
 ## PRIMEIROS COMANDOS COM GIT
 
 ### git config [--global] [value]
@@ -185,18 +185,66 @@ Cria uma anotação com todas as alterações e informações descritar no tópi
 $ git commit -m "Descrição das alterações"
 ```
 
+### git status
+
+Exibe o status dos arquivos do repositório, na branch atual
+
+```bash
+$ git status
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+### git restore [file]
+
+Descarta as alterações de um arquivo
+
+### git restore --staged [file]
+
+Retorna com o arquivo de 'staged' (após `git add`) para 'unstaged'
+
+### git rm [flag] [file]
+
+Remove um arquivo do repositório
+
+___
 ## CICLO DE VIDA DOS ARQUIVOS NO GIT
 
     UNTRACKED       ------------------------TRACKED-----------------------
         |               |                       |                      |
         |         [UNMODIFIED]              [MODIFIED]              [STAGED]
         |               |                       |                      |
-        | git add ---------------------------------------------------->|
+        | git add ---------------------------------------------------> |
         |               |                       |                      |                                                                    
-        |               | Arquivo editado ----->|                      |
+        |               | Arquivo editado ----> |                      |
         |               |                       |                      |
-        |               |                       | git add------------->|
+        |               |                       | git add -----------> |
+        |               | <-------- git restore | <-..restore --staged |
+        | <----- git rm |                       |                      |
         |               |                       |                      |
-        |<------ git rm |                       |                      |
-        |               |                       |                      |
-        |               |<--------------------------------- git commit |
+        |               | <-------------------------------- git commit |
+___
+## REPOSITÓRIOS
+
+                                                        SERVIDOR------------|
+                                                        |                   |
+                                                        |[REMOTE REPOSITORY]|
+                                                        |-------------------|
+
+    AMBIENTE DE DESENVOLVIMENTO---------------------------------------------|
+    |                                                                       |
+    |[WORKING DIRECTORY]          [STAGING AREA]         [LOCAL REPOSITORY] |
+    |-----------------------------------------------------------------------|
+
+
+Working Directory: Arquivos untracked, unmodified e modified
+
+Staging Area: Arquivo adicionado - git add (arquivo)
+
+Local Repository: "Snapshot" dos arquivos commitados, que voltam a estar disponíveis, após versionados, no working directory
+
