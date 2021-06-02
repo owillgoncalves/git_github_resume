@@ -13,3 +13,56 @@ GitHub
 - Trabalho em equipe
 - Melhorar seu código
 - Reconhecimento
+
+## Navegação básica no terminal
+
+GUI (Graphic User Interface) x CLI (Command Line Interface)
+
+### O que vamos aprender?
+
+- Mudar de diretório
+- Listar diretórios
+- Criar pastas/arquivos
+- Deletas pastas/arquivos
+
+### Listar diretórios e arquivos no diretório atual
+
+```bash
+$ ls
+```
+
+### Mudar diretório
+
+```bash
+$ cd /path
+```
+
+### Limpar terminal (ou CTRL + L)
+
+```bash
+$ clear
+```
+
+### Autocomplete (TAB)
+
+```bash
+$ cd P(ath)
+```
+
+### Criar diretório
+
+```bash
+$ mkdir directory-name
+```
+
+### Criar arquivo
+
+```bash
+$ echo hello > hello.txt
+```
+
+### Remover diretório (-rf => recursive / force)
+
+```bash
+$ rm -rf directory-name/
+```
